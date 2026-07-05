@@ -1,9 +1,9 @@
 # Stage 1: Build the Maven application
 FROM maven:3.9.6-eclipse-temurin-21 AS build
 WORKDIR /app
-COPY pom.xml .
+COPY backend/pom.xml .
 RUN mvn dependency:go-offline -B
-COPY src ./src
+COPY backend/src ./src
 RUN mvn clean package -DskipTests -B
 
 # Stage 2: Run the Spring Boot application
