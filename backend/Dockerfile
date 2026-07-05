@@ -11,7 +11,7 @@ FROM eclipse-temurin:21-jre-jammy
 WORKDIR /app
 COPY --from=build /app/target/debugmate-api-0.0.1-SNAPSHOT.jar app.jar
 EXPOSE 8080
-ENV SPRING_DATASOURCE_URL=jdbc:postgresql://postgres:5432/debugmate
+ENV SPRING_DATASOURCE_URL=jdbc:postgresql://trolley.proxy.rlwy.net:49425/railway
 ENV SPRING_DATASOURCE_USERNAME=postgres
-ENV SPRING_DATASOURCE_PASSWORD=postgres
+ENV SPRING_DATASOURCE_PASSWORD=yHFzQilzZRIEafREPHCRssSpSqqKUFjQ
 ENTRYPOINT ["java", "-Djava.security.egd=file:/dev/./urandom", "-jar", "app.jar"]

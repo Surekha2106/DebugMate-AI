@@ -5,9 +5,9 @@ server:
 
 spring:
   datasource:
-    url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://localhost:5432/debugmate}
+    url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://trolley.proxy.rlwy.net:49425/railway}
     username: ${SPRING_DATASOURCE_USERNAME:postgres}
-    password: ${SPRING_DATASOURCE_PASSWORD:postgres}
+    password: ${SPRING_DATASOURCE_PASSWORD:yHFzQilzZRIEafREPHCRssSpSqqKUFjQ}
     driver-class-name: org.postgresql.Driver
   jpa:
     hibernate:
