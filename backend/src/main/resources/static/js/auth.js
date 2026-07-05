@@ -1,5 +1,6 @@
 // Auth state management and API wrappers
-const API_BASE = window.location.port === "8080" ? "" : "http://localhost:8080";
+const isLocal = window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1" || window.location.protocol === "file:";
+const API_BASE = isLocal && window.location.port !== "8080" ? "http://localhost:8080" : "";
 
 // Check if user is logged in
 function isLoggedIn() {
