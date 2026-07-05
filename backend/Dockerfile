@@ -14,4 +14,4 @@ EXPOSE 8080
 ENV SPRING_DATASOURCE_URL=jdbc:postgresql://trolley.proxy.rlwy.net:49425/railway
 ENV SPRING_DATASOURCE_USERNAME=postgres
 ENV SPRING_DATASOURCE_PASSWORD=yHFzQilzZRIEafREPHCRssSpSqqKUFjQ
-ENTRYPOINT ["java", "-Djava.security.egd=file:/dev/./urandom", "-jar", "app.jar"]
+ENTRYPOINT ["java", "-Duser.timezone=UTC", "-Djava.security.egd=file:/dev/./urandom", "-jar", "app.jar"]
