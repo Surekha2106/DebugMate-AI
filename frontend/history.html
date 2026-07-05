@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>History - DebugMate AI</title>
+    <link rel="stylesheet" href="css/style.css?v=1783193493577">
+    <style>
+        /* Special layout for inspection modal inside history */
+        .modal-body-scroll {
+            max-height: 70vh;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            padding-right: 10px;
+        }
+    </style>
+    <script src="js/theme.js"></script>
+</head>
+<body>
+    <div id="color-bends-bg"></div>
+
+    <div class="app-container">
+        
+        <!-- Sidebar Navigation -->
+        <div class="sidebar">
+            <div class="sidebar-logo">
+                <div class="logo">🤖 DebugMate <span>AI</span></div>
+            </div>
+            <ul class="sidebar-menu">
+                <li class="sidebar-item" id="nav-dashboard"><a href="dashboard.html?v=1783191804496">📊 Dashboard</a></li>
+                <li class="sidebar-item" id="nav-new-debug"><a href="debug.html?v=1783191804496">⚡ New Debug</a></li>
+                <li class="sidebar-item" id="nav-history"><a href="history.html?v=1783191804496">⏳ History</a></li>
+                <li class="sidebar-item" id="nav-profile"><a href="profile.html?v=1783191804496">👤 Profile</a></li>
+                <li class="sidebar-item" id="nav-settings"><a href="settings.html?v=1783191804496">⚙️ Settings</a></li>
+            </ul>
+            <div class="sidebar-user">
+                <div class="user-avatar">D</div>
+                <div class="user-info">
+                    <span class="user-name">Developer</span>
+                    <span class="user-email">dev@debugmate.ai</span>
+                </div>
+                <button onclick="logout()" style="background:none; border:none; color:var(--text-secondary); cursor:pointer; font-size:1.1rem; margin-left:auto;" title="Logout">🚪</button>
+            </div>
+        </div>
+
+        <!-- Main Viewport -->
+        <div class="main-content">
+            <div class="top-navbar">
+                <h1 class="page-title">Debug History</h1>
+            </div>
+
+            <!-- History log container -->
+            <div class="glass-panel" style="padding: 30px;">
+                <h3>Past Debugging Sessions</h3>
+                <table class="activity-table" style="margin-top: 20px;">
+                    <thead>
+                        <tr>
+                            <th>Date & Time</th>
+                            <th>Language</th>
+                            <th>Status/Errors</th>
+                            <th>Initial Snippet</th>
+                            <th style="text-align: right;">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="history-table-body">
+                        <!-- Populated by history.js -->
+                        <tr>
+                            <td colspan="5" style="text-align: center; color: var(--text-secondary); padding: 30px;">
+                                Loading session log data...
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Inspection Session Details Modal -->
+    <div id="history-detail-modal" class="modal-overlay">
+        <div class="glass-panel modal-content" style="max-width: 750px; width: 90%;">
+            <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border-glass); padding-bottom: 12px;">
+                <h3 id="modal-title" style="margin: 0;">Inspection Session</h3>
+                <button id="btn-close-modal" style="background: none; border: none; color: var(--text-secondary); cursor: pointer; font-size: 1.25rem;">✕</button>
+            </div>
+            
+            <!-- Scrollable Report View -->
+            <div class="modal-body-scroll">
+                
+                <!-- Summary -->
+                <div class="report-section">
+                    <h4 class="report-section-title"><span>📋</span> Executive Summary</h4>
+                    <p id="modal-summary" style="font-size: 0.9rem; line-height: 1.6; color: var(--text-secondary);"></p>
+                </div>
+
+                <!-- Detected Bugs -->
+                <div class="report-section">
+                    <h4 class="report-section-title"><span>⚠️</span> Detected Errors</h4>
+                    <div id="modal-errors">
+                        <!-- Plugs error cards -->
+                    </div>
+                </div>
+
+                <!-- Complexity -->
+                <div class="report-section">
+                    <h4 class="report-section-title"><span>📈</span> Algorithmic Complexity</h4>
+                    <p id="modal-complexity" style="font-size: 0.9rem; line-height: 1.6; color: var(--text-secondary);"></p>
+                </div>
+
+                <!-- Best Practices -->
+                <div class="report-section">
+                    <h4 class="report-section-title"><span>💡</span> Best Practices</h4>
+                    <ul id="modal-practices" style="padding-left: 20px;">
+                        <!-- Bullets -->
+                    </ul>
+                </div>
+
+                <!-- Optimized Code Monaco Editor -->
+                <div class="report-section" style="display: flex; flex-direction: column; gap: 12px; height: 320px;">
+                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                        <h4 class="report-section-title" style="margin-bottom: 0;"><span>✨</span> Optimized Code Output</h4>
+                        <button id="btn-copy-history" class="btn-secondary" style="padding: 4px 8px; font-size: 0.75rem;">📋 Copy Code</button>
+                    </div>
+                    <div id="modal-optimized-editor" style="flex-grow: 1; border-radius: 8px; overflow: hidden; border: 1px solid var(--border-glass);">
+                        <!-- Monaco reader mounts here -->
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Notifications Container -->
+    <div id="toast-container"></div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/0.154.0/three.min.js"></script>
+    <script src="js/colorBends.js?v=1783193493577"></script>
+    <script src="js/auth.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.39.0/min/vs/loader.min.js"></script>
+    <script src="js/history.js"></script>
+    </body>
+</html>

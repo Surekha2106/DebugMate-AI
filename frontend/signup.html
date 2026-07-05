@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up - DebugMate AI</title>
+    <link rel="stylesheet" href="css/style.css?v=1783193493577">
+    <style>
+        .auth-container {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .auth-card {
+            max-width: 440px;
+            width: 100%;
+            padding: 40px;
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+
+        .auth-header {
+            text-align: center;
+        }
+
+        .auth-header h2 {
+            font-size: 1.8rem;
+            font-weight: 800;
+            margin-bottom: 8px;
+        }
+
+        .auth-header p {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        .auth-footer {
+            text-align: center;
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+
+        .auth-footer a {
+            color: var(--accent-indigo);
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .auth-footer a:hover {
+            text-decoration: underline;
+        }
+    </style>
+    <script src="js/theme.js"></script>
+</head>
+<body>
+    <div id="color-bends-bg"></div>
+
+    <div class="auth-container">
+        <div class="glass-panel auth-card">
+            <div class="auth-header">
+                <div class="logo" style="justify-content: center; margin-bottom: 16px; font-size: 1.8rem;">
+                    🤖 DebugMate <span>AI</span>
+                </div>
+                <h2>Create Account</h2>
+                <p>Join DebugMate AI to build and optimize code smarter</p>
+            </div>
+
+            <form id="signup-form" onsubmit="handleSignup(event)">
+                <div class="form-group">
+                    <label for="name">Full Name</label>
+                    <input type="text" id="name" class="form-input" placeholder="Alex Dev" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email Address</label>
+                    <input type="email" id="email" class="form-input" placeholder="alex@example.com" required>
+                </div>
+                <div class="form-group">
+                    <label for="password">Password (min 6 characters)</label>
+                    <input type="password" id="password" class="form-input" placeholder="••••••••" minlength="6" required>
+                </div>
+                
+                <button type="submit" class="btn-primary" style="width: 100%; padding: 14px; margin-top: 10px;">
+                    Create Account
+                </button>
+            </form>
+
+            <div class="auth-footer">
+                Already have an account? <a href="login.html?v=1783191804496">Login</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Container -->
+    <div id="toast-container"></div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/0.154.0/three.min.js"></script>
+    <script src="js/colorBends.js?v=1783193493577"></script>
+    <script src="js/auth.js"></script>
+    <script>
+        // Redirect to dashboard if already logged in
+        requireNoAuth();
+
+        async function handleSignup(e) {
+            e.preventDefault();
+            const name = document.getElementById("name").value;
+            const email = document.getElementById("email").value;
+            const password = document.getElementById("password").value;
+            
+            const submitBtn = e.target.querySelector("button[type='submit']");
+            submitBtn.disabled = true;
+            submitBtn.textContent = "Creating Account...";
+            
+            const success = await signup(name, email, password);
+            
+            if (!success) {
+                submitBtn.disabled = false;
+                submitBtn.textContent = "Create Account";
+            }
+        }
+    </script>
+    </body>
+</html>

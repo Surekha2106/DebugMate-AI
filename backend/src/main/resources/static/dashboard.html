@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - DebugMate AI</title>
+    <link rel="stylesheet" href="css/style.css?v=1783193493577">
+    <script src="js/theme.js"></script>
+</head>
+<body>
+    <div id="color-bends-bg"></div>
+
+    <div class="app-container">
+        
+        <!-- Sidebar Navigation -->
+        <div class="sidebar">
+            <div class="sidebar-logo">
+                <div class="logo">🤖 DebugMate <span>AI</span></div>
+            </div>
+            <ul class="sidebar-menu">
+                <li class="sidebar-item" id="nav-dashboard"><a href="dashboard.html?v=1783191804496">📊 Dashboard</a></li>
+                <li class="sidebar-item" id="nav-new-debug"><a href="debug.html?v=1783191804496">⚡ New Debug</a></li>
+                <li class="sidebar-item" id="nav-history"><a href="history.html?v=1783191804496">⏳ History</a></li>
+                <li class="sidebar-item" id="nav-profile"><a href="profile.html?v=1783191804496">👤 Profile</a></li>
+                <li class="sidebar-item" id="nav-settings"><a href="settings.html?v=1783191804496">⚙️ Settings</a></li>
+            </ul>
+            <div class="sidebar-user">
+                <div class="user-avatar">D</div>
+                <div class="user-info">
+                    <span class="user-name">Developer</span>
+                    <span class="user-email">dev@debugmate.ai</span>
+                </div>
+                <button onclick="logout()" style="background:none; border:none; color:var(--text-secondary); cursor:pointer; font-size:1.1rem; margin-left:auto;" title="Logout">🚪</button>
+            </div>
+        </div>
+
+        <!-- Main Dashboard Viewport -->
+        <div class="main-content">
+            
+            <!-- Top Navbar -->
+            <div class="top-navbar">
+                <h1 class="page-title">Workspace</h1>
+                <div class="navbar-actions">
+                    <a href="debug.html?v=1783191804496" class="btn-primary">⚡ New Debug Session</a>
+                </div>
+            </div>
+
+            <!-- Stats Grid -->
+            <div class="stats-grid">
+                <div class="glass-panel stat-card">
+                    <span class="stat-label">Total Debug Sessions</span>
+                    <span class="stat-value" id="stat-total-sessions">0</span>
+                </div>
+                <div class="glass-panel stat-card">
+                    <span class="stat-label">Bugs Analyzed</span>
+                    <span class="stat-value" id="stat-errors-resolved">0</span>
+                </div>
+                <div class="glass-panel stat-card">
+                    <span class="stat-label">Languages Used</span>
+                    <span class="stat-value" id="stat-active-languages">0</span>
+                </div>
+            </div>
+
+            <!-- Dashboard Grid -->
+            <div class="dashboard-grid">
+                
+                <!-- Left panel: Recent Activity -->
+                <div class="glass-panel" style="padding: 24px;">
+                    <h3>Recent Sessions</h3>
+                    <table class="activity-table">
+                        <thead>
+                            <tr>
+                                <th>Date</th>
+                                <th>Language</th>
+                                <th>Result</th>
+                                <th style="text-align: right;">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody id="recent-sessions-body">
+                            <!-- Populated dynamically via JS -->
+                            <tr>
+                                <td colspan="4" style="text-align: center; color: var(--text-secondary); padding: 30px;">
+                                    Loading dashboard sessions...
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Right panel: Quick Actions & Snippets shortcut -->
+                <div class="glass-panel" style="padding: 24px; display: flex; flex-direction: column; gap: 20px;">
+                    <h3>Quick Actions</h3>
+                    
+                    <a href="debug.html?v=1783191804496" class="btn-secondary" style="justify-content: flex-start; text-decoration: none; padding: 16px;">
+                        <span>⚡</span> Analyze New Code
+                    </a>
+                    
+                    <a href="profile.html?v=1783191804496" class="btn-secondary" style="justify-content: flex-start; text-decoration: none; padding: 16px;">
+                        <span>👤</span> Update Profile Details
+                    </a>
+
+                    <a href="settings.html?v=1783191804496" class="btn-secondary" style="justify-content: flex-start; text-decoration: none; padding: 16px;">
+                        <span>⚙️</span> Platform Settings
+                    </a>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+
+    <!-- Toast Notifications Container -->
+    <div id="toast-container"></div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/0.154.0/three.min.js"></script>
+    <script src="js/colorBends.js?v=1783193493577"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/dashboard.js"></script>
+    </body>
+</html>

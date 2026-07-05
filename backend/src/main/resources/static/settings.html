@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Settings - DebugMate AI</title>
+    <link rel="stylesheet" href="css/style.css?v=1783193493577">
+    <style>
+        .settings-layout {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+        }
+
+        .snippets-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 20px;
+            max-height: calc(100vh - 220px);
+            overflow-y: auto;
+            padding-right: 8px;
+        }
+
+        @media (max-width: 1024px) {
+            .settings-layout {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+    <script src="js/theme.js"></script>
+</head>
+<body>
+    <div id="color-bends-bg"></div>
+
+    <div class="app-container">
+        
+        <!-- Sidebar Navigation -->
+        <div class="sidebar">
+            <div class="sidebar-logo">
+                <div class="logo">🤖 DebugMate <span>AI</span></div>
+            </div>
+            <ul class="sidebar-menu">
+                <li class="sidebar-item" id="nav-dashboard"><a href="dashboard.html?v=1783191804496">📊 Dashboard</a></li>
+                <li class="sidebar-item" id="nav-new-debug"><a href="debug.html?v=1783191804496">⚡ New Debug</a></li>
+                <li class="sidebar-item" id="nav-history"><a href="history.html?v=1783191804496">⏳ History</a></li>
+                <li class="sidebar-item" id="nav-profile"><a href="profile.html?v=1783191804496">👤 Profile</a></li>
+                <li class="sidebar-item" id="nav-settings"><a href="settings.html?v=1783191804496">⚙️ Settings</a></li>
+            </ul>
+            <div class="sidebar-user">
+                <div class="user-avatar">D</div>
+                <div class="user-info">
+                    <span class="user-name">Developer</span>
+                    <span class="user-email">dev@debugmate.ai</span>
+                </div>
+                <button onclick="logout()" style="background:none; border:none; color:var(--text-secondary); cursor:pointer; font-size:1.1rem; margin-left:auto;" title="Logout">🚪</button>
+            </div>
+        </div>
+
+        <!-- Main Viewport -->
+        <div class="main-content">
+            <div class="top-navbar">
+                <h1 class="page-title">Workspace Settings</h1>
+            </div>
+
+            <div class="settings-layout">
+                
+                <!-- Left Section: Saved Snippets Grid -->
+                <div class="glass-panel" style="padding: 30px; display: flex; flex-direction: column; gap: 20px;">
+                    <h3>Saved Code Snippets</h3>
+                    <div id="snippets-grid" class="snippets-grid">
+                        <!-- Populated by settings.js -->
+                        <div style="grid-column: 1/-1; text-align: center; color: var(--text-secondary); padding: 40px;">
+                            Loading code snippets...
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Section: Platform Custom Configurations -->
+                <div class="glass-panel" style="padding: 30px; display: flex; flex-direction: column; gap: 20px;">
+                    <h3>Preferences</h3>
+                    <form id="settings-config-form" style="display: flex; flex-direction: column; gap: 20px;">
+                        
+
+                        <div class="form-group" style="display: flex; justify-content: space-between; align-items: center; background: rgba(255,255,255,0.02); padding: 16px; border-radius: 12px; border: 1px solid var(--border-glass);">
+                            <div>
+                                <label style="margin-bottom: 4px; display: block; color: var(--text-primary);">Aesthetic Glow Effects</label>
+                                <span style="font-size: 0.75rem; color: var(--text-secondary);">Toggle radial backdrops and shadows.</span>
+                            </div>
+                            <input type="checkbox" id="theme-glow-toggle" style="width: 20px; height: 20px; cursor: pointer;" checked>
+                        </div>
+
+                        <button type="submit" class="btn-primary" style="padding: 14px; margin-top: auto;">
+                            Save Settings
+                        </button>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- Saved Snippet View Modal -->
+    <div id="snippet-view-modal" class="modal-overlay">
+        <div class="glass-panel modal-content" style="max-width: 650px; width: 90%;">
+            <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border-glass); padding-bottom: 12px; margin-bottom: 16px;">
+                <h3 id="modal-snippet-title" style="margin: 0;">Code Snippet</h3>
+                <button id="btn-close-snippet-modal" style="background: none; border: none; color: var(--text-secondary); cursor: pointer; font-size: 1.25rem;">✕</button>
+            </div>
+            <div id="modal-snippet-editor" style="border-radius: 8px; overflow: hidden; border: 1px solid var(--border-glass); height: 300px;">
+                <!-- Monaco editor loaded here -->
+            </div>
+            <div style="display: flex; gap: 12px; justify-content: flex-end; margin-top: 10px;">
+                <button id="btn-copy-saved-snippet" class="btn-primary" style="padding: 10px 20px;">📋 Copy Code</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Notifications Container -->
+    <div id="toast-container"></div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/0.154.0/three.min.js"></script>
+    <script src="js/colorBends.js?v=1783193493577"></script>
+    <script src="js/auth.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.39.0/min/vs/loader.min.js"></script>
+    <script src="js/settings.js"></script>
+    </body>
+</html>

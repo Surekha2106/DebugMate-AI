@@ -1,0 +1,31 @@
+server:
+  port: 8080
+  error:
+    include-message: always
+
+spring:
+  datasource:
+    url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://localhost:5432/debugmate}
+    username: ${SPRING_DATASOURCE_USERNAME:postgres}
+    password: ${SPRING_DATASOURCE_PASSWORD:postgres}
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        format_sql: true
+    show-sql: true
+  servlet:
+    multipart:
+      max-file-size: 10MB
+      max-request-size: 10MB
+
+app:
+  jwt:
+    secret: ${JWT_SECRET:9a4f2c8d3b7a1e5f8c6b4d2a1c3e5f7a9b0c2d4e6f8a0b2c4d6e8f0a2b4c6d8e}
+    expiration-ms: 86400000 # 24 hours
+  gemini:
+    api-key: ${GEMINI_API_KEY}
+    api-url: https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent

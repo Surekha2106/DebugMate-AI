@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>New Debug - DebugMate AI</title>
+    <link rel="stylesheet" href="css/style.css?v=1783193493577">
+    <script src="js/theme.js"></script>
+</head>
+<body>
+    <div id="color-bends-bg"></div>
+
+    <div class="app-container">
+        
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <div class="sidebar-logo">
+                <div class="logo">🤖 DebugMate <span>AI</span></div>
+            </div>
+            <ul class="sidebar-menu">
+                <li class="sidebar-item" id="nav-dashboard"><a href="dashboard.html?v=1783191804496">📊 Dashboard</a></li>
+                <li class="sidebar-item" id="nav-new-debug"><a href="debug.html?v=1783191804496">⚡ New Debug</a></li>
+                <li class="sidebar-item" id="nav-history"><a href="history.html?v=1783191804496">⏳ History</a></li>
+                <li class="sidebar-item" id="nav-profile"><a href="profile.html?v=1783191804496">👤 Profile</a></li>
+                <li class="sidebar-item" id="nav-settings"><a href="settings.html?v=1783191804496">⚙️ Settings</a></li>
+            </ul>
+            <div class="sidebar-user">
+                <div class="user-avatar">D</div>
+                <div class="user-info">
+                    <span class="user-name">Developer</span>
+                    <span class="user-email">dev@debugmate.ai</span>
+                </div>
+                <button onclick="logout()" style="background:none; border:none; color:var(--text-secondary); cursor:pointer; font-size:1.1rem; margin-left:auto;" title="Logout">🚪</button>
+            </div>
+        </div>
+
+        <!-- Main Viewport -->
+        <div class="main-content" style="padding: 30px;">
+            <div class="top-navbar" style="margin-bottom: 20px;">
+                <h1 class="page-title">Debug Workspace</h1>
+                
+                <div class="navbar-actions">
+                    <!-- Language Selection -->
+                    <select id="language-select" class="form-input" style="padding: 10px 16px; width: 160px; background: rgba(255,255,255,0.05);">
+                        <option value="javascript">JavaScript</option>
+                        <option value="python">Python</option>
+                        <option value="java">Java</option>
+                        <option value="cpp">C++</option>
+                    </select>
+
+                    <!-- Upload Code -->
+                    <label class="btn-secondary" style="padding: 10px 16px; cursor: pointer; display: inline-flex; align-items: center; gap: 8px;">
+                        📂 Upload File
+                        <input type="file" id="file-upload" style="display: none;" accept=".js,.py,.java,.cpp,.cc,.h,.c">
+                    </label>
+
+                    <button id="btn-save-snippet" class="btn-secondary" style="padding: 10px 16px;">💾 Save Snippet</button>
+                    <button id="btn-clear" class="btn-secondary" style="padding: 10px 16px;">🧹 Clear</button>
+                </div>
+            </div>
+
+            <!-- Workspace Layout Grid -->
+            <div class="editor-layout">
+                
+                <!-- Left Pane: Code Editor -->
+                <div class="glass-panel editor-pane">
+                    <div class="pane-header">
+                        <h3>Source Code</h3>
+                        <span style="font-size: 0.8rem; color: var(--text-secondary);">Write or Paste Code</span>
+                    </div>
+                    <div id="editor-container" class="editor-container">
+                        <!-- Monaco editor will load here -->
+                    </div>
+                    <div style="padding: 16px; display: flex; border-top: 1px solid var(--border-glass);">
+                        <button id="btn-analyze" class="btn-primary" style="width: 100%; padding: 14px;">
+                            🚀 Analyze Code with DebugMate AI
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Right Pane: Analysis Report -->
+                <div class="glass-panel report-pane" style="overflow: hidden;">
+                    <div class="pane-header">
+                        <h3>Debugging Report</h3>
+                        <button id="btn-download-rep" class="btn-secondary" style="padding: 6px 12px; font-size: 0.8rem;">
+                            📥 Download Report
+                        </button>
+                    </div>
+                    
+                    <!-- Empty State -->
+                    <div id="empty-report-state" style="flex-grow: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 16px; text-align: center; padding: 40px; color: var(--text-secondary);">
+                        <span style="font-size: 3rem;">🤖</span>
+                        <h4>Awaiting Analysis</h4>
+                        <p style="max-width: 300px; font-size: 0.9rem;">Submit your source code for processing, and DebugMate AI will render the report metrics here.</p>
+                    </div>
+
+                    <!-- Report Content -->
+                    <div id="report-output-panel" class="report-container" style="display: none;">
+                        
+                        <!-- Summary -->
+                        <div class="report-section">
+                            <h4 class="report-section-title"><span>📋</span> Executive Summary</h4>
+                            <p id="report-summary" style="font-size: 0.9rem; line-height: 1.6; color: var(--text-secondary);"></p>
+                        </div>
+
+                        <!-- Detected Errors -->
+                        <div class="report-section">
+                            <h4 class="report-section-title"><span>⚠️</span> Detected Errors</h4>
+                            <div id="report-errors">
+                                <!-- Cards populated by script -->
+                            </div>
+                        </div>
+
+                        <!-- Complexity Analysis -->
+                        <div class="report-section">
+                            <h4 class="report-section-title"><span>📈</span> Algorithmic Complexity</h4>
+                            <p id="report-complexity" style="font-size: 0.9rem; line-height: 1.6; color: var(--text-secondary);"></p>
+                        </div>
+
+                        <!-- Best Coding Practices -->
+                        <div class="report-section">
+                            <h4 class="report-section-title"><span>💡</span> Best Practices</h4>
+                            <ul id="report-best-practices" style="padding-left: 20px;">
+                                <!-- Bullets populated by script -->
+                            </ul>
+                        </div>
+
+                        <!-- Optimized Code -->
+                        <div class="report-section" style="display: flex; flex-direction: column; gap: 12px; height: 350px;">
+                            <div style="display: flex; justify-content: space-between; align-items: center;">
+                                <h4 class="report-section-title" style="margin-bottom: 0;"><span>✨</span> Optimized Code</h4>
+                                <button id="btn-copy-opt" class="btn-secondary" style="padding: 4px 8px; font-size: 0.75rem;">📋 Copy</button>
+                            </div>
+                            <div id="optimized-editor-container" style="flex-grow: 1; border-radius: 8px; overflow: hidden; border: 1px solid var(--border-glass);">
+                                <!-- Optimized Monaco code loaded here -->
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- Spinner Loading Overlay -->
+    <div id="loading-overlay" class="loading-overlay" style="display: none;">
+        <div class="spinner"></div>
+        <h3 style="background: linear-gradient(135deg, #fff, #9ca3af); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">DebugMate AI is Debugging...</h3>
+        <p style="color: var(--text-secondary); font-size: 0.9rem;">Reviewing variables, control loops, and syntax paths.</p>
+    </div>
+
+    <!-- Save Snippet Modal -->
+    <div id="snippet-modal" class="modal-overlay">
+        <div class="glass-panel modal-content">
+            <h3>Save Snippet</h3>
+            <p style="color: var(--text-secondary); font-size: 0.9rem;">Store this code in your Snippets catalog for quick reference.</p>
+            <form id="save-snippet-form">
+                <div class="form-group">
+                    <label for="snippet-title">Snippet Title</label>
+                    <input type="text" id="snippet-title" class="form-input" placeholder="e.g. QuickSort Implementation" required>
+                </div>
+                <div style="display: flex; gap: 12px; justify-content: flex-end; margin-top: 10px;">
+                    <button type="button" class="btn-secondary" onclick="closeModal()">Cancel</button>
+                    <button type="submit" class="btn-primary">Save Snippet</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Toast Notifications -->
+    <div id="toast-container"></div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/0.154.0/three.min.js"></script>
+    <script src="js/colorBends.js?v=1783193493577"></script>
+    <script src="js/auth.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.39.0/min/vs/loader.min.js"></script>
+    <script src="js/debug.js"></script>
+    </body>
+</html>
