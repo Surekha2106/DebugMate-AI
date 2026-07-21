@@ -5,6 +5,11 @@
   
   **Your Intelligent Coding Assistant & Debugging Companion**
   
+  [![Build Status](https://img.shields.io/github/actions/workflow/status/Surekha2106/DebugMate-AI/build.yml?style=flat-square&logo=github&label=Build)](https://github.com/Surekha2106/DebugMate-AI/actions)
+  [![GitHub stars](https://img.shields.io/github/stars/Surekha2106/DebugMate-AI?style=flat-square&logo=github&color=yellow)](https://github.com/Surekha2106/DebugMate-AI/stargazers)
+  [![GitHub forks](https://img.shields.io/github/forks/Surekha2106/DebugMate-AI?style=flat-square&logo=github&color=blue)](https://github.com/Surekha2106/DebugMate-AI/network/members)
+  [![License](https://img.shields.io/github/license/Surekha2106/DebugMate-AI?style=flat-square)](https://github.com/Surekha2106/DebugMate-AI/blob/main/LICENSE)
+  <br/>
   [![Spring Boot](https://img.shields.io/badge/Spring_Boot-3.2-6DB33F?style=flat-square&logo=spring-boot&logoColor=white)](https://spring.io/projects/spring-boot)
   [![Java](https://img.shields.io/badge/Java-21-ED8B00?style=flat-square&logo=openjdk&logoColor=white)](https://java.com)
   [![PostgreSQL](https://img.shields.io/badge/PostgreSQL-15-336791?style=flat-square&logo=postgresql&logoColor=white)](https://www.postgresql.org/)
@@ -114,6 +119,25 @@ DebugMate-AI/
 │   └── ...                   # Other views (login, history, settings)
 ├── docker-compose.yml        # Docker configuration for app + db
 └── .env.example              # Example environment variables
+```
+
+## 🏗️ Architecture
+
+```mermaid
+graph TD;
+    Client[Frontend: HTML/CSS/JS] -->|REST API / JWT| API[Backend: Spring Boot]
+    API -->|JPA / Hibernate| DB[(PostgreSQL)]
+    API -->|HTTP Requests| Gemini[Google Gemini API]
+    
+    classDef frontend fill:#f9f,stroke:#333,stroke-width:2px;
+    classDef backend fill:#bbf,stroke:#333,stroke-width:2px;
+    classDef database fill:#ff9,stroke:#333,stroke-width:2px;
+    classDef ai fill:#dfd,stroke:#333,stroke-width:2px;
+
+    class Client frontend;
+    class API backend;
+    class DB database;
+    class Gemini ai;
 ```
 
 ## 🤝 Contributing
